@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './features/store';
+import ListeStagiaire, { initialStagiaires } from './components/stagiaire/ListeStagiaire';
+import AjouterStagiaire from './components/stagiaire/AjouterStagiaire';
+import RechercheStagiaire from './components/stagiaire/RechercheStagiaire';
+import ListeEtudiants from './components/etudiant/ListeEtudiants';
+import AjouterEtudiant from './components/etudiant/AjouterEtudiant';
 
-function App() {
-  const [count, setCount] = useState(0)
+function AppContent() {
+    const [stagiaires, setStagiaires] = useState(initialStagiaires);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const handleAddStagiaire = (newStagiaire) => {
+        setStagiaires([...stagiaires, newStagiaire]);
+    };
+
+    const handleDeleteStagiaire = (id) => {
+        setStagiaires(stagiaires.filter(s => s.id !== id));
+    };
+
+    return (
+        <BrowserRouter>
+            <nav>
+                <Link to="/">Liste Stagiaires</Link> | 
+                <Link to="/ajouter-stagiaire">Ajouter Stagiaire</Link> | 
+                <Link to="/recherche">Recherche</Link> | 
+                <Link to="/etudiants">Étudiants (Redux)</Link> | 
+                <Link to="/ajouter-etudiant">Ajouter Étudiant</Link>
+            </nav>
+            <hr />
+            <Routes>
+                <Route path="/" element={<ListeStagiaire stagiaires={stagiaires} onDelete={handleDeleteStagiaire} />} />
+                <Route path="/ajouter-stagiaire" element={<AjouterStagiaire onAdd={handleAddStagiaire} />} />
+                <Route path="/recherche" element={<RechercheStagiaire stagiaires={stagiaires} />} />
+                <Route path="/etudiants" element={<ListeEtudiants />} />
+                <Route path="/ajouter-etudiant" element={<AjouterEtudiant />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
-export default App
+function App() {
+    return (
+        <Provider store={store}>
+            <AppContent />
+        </Provider>
+    );
+}
+
+export default App;

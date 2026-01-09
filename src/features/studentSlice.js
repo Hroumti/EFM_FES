@@ -20,6 +20,11 @@ const StudentSlice = createSlice({
         removeStudent: (state, action) => {
             state.studentList = state.studentList.filter(s => s.id !== action.payload.id)
         },
+        filterByFiliere: (state, action) => {
+            if (action.payload.filiere) {
+                state.studentList = state.studentList.filter(s => s.filiere === action.payload.filiere)
+            }
+        },
         
     }
 })
