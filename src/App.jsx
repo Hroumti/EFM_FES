@@ -6,7 +6,6 @@ import ListeStagiaire, { initialStagiaires } from './components/stagiaire/ListeS
 import AjouterStagiaire from './components/stagiaire/AjouterStagiaire';
 import RechercheStagiaire from './components/stagiaire/RechercheStagiaire';
 import ListeEtudiants from './components/etudiant/ListeEtudiants';
-import AjouterEtudiant from './components/etudiant/AjouterEtudiant';
 
 function AppContent() {
     const [stagiaires, setStagiaires] = useState(initialStagiaires);
@@ -25,8 +24,6 @@ function AppContent() {
                 <Link to="/">Liste Stagiaires</Link> | 
                 <Link to="/ajouter-stagiaire">Ajouter Stagiaire</Link> | 
                 <Link to="/recherche">Recherche</Link> | 
-                <Link to="/etudiants">Étudiants (Redux)</Link> | 
-                <Link to="/ajouter-etudiant">Ajouter Étudiant</Link>
             </nav>
             <hr />
             <Routes>
@@ -34,7 +31,6 @@ function AppContent() {
                 <Route path="/ajouter-stagiaire" element={<AjouterStagiaire onAdd={handleAddStagiaire} />} />
                 <Route path="/recherche" element={<RechercheStagiaire stagiaires={stagiaires} />} />
                 <Route path="/etudiants" element={<ListeEtudiants />} />
-                <Route path="/ajouter-etudiant" element={<AjouterEtudiant />} />
             </Routes>
         </BrowserRouter>
     );
