@@ -6,6 +6,7 @@ import ListeStagiaire, { initialStagiaires } from './components/stagiaire/ListeS
 import AjouterStagiaire from './components/stagiaire/AjouterStagiaire';
 import RechercheStagiaire from './components/stagiaire/RechercheStagiaire';
 import ListeEtudiants from './components/etudiant/ListeEtudiants';
+import './retro2000s.css';
 
 function AppContent() {
     const [stagiaires, setStagiaires] = useState(initialStagiaires);
